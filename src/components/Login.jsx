@@ -11,25 +11,10 @@ import {
   Paper,
   RadioGroup
 } from '@mui/material';
-import { styled } from '@mui/system';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import api from "../api.js";
-
-// Styled Radio Button
-const StyledRadio = styled(Radio)(({ theme }) => ({
-  '&:hover': {
-    backgroundColor: 'transparent',
-  },
-  '& .MuiSvgIcon-root': {
-    width: 18,
-    height: 18,
-  },
-  '&.Mui-checked': {
-    color: '#48a068',
-  },
-}));
 
 // Validation Schema
 const loginSchema = yup.object().shape({
@@ -60,14 +45,24 @@ const LoginForm = ({ setShowForgotPassword }) => {
   };
 
   return (
-    <Paper elevation={3} sx={{ maxWidth: 420, p: 3, mx: 'auto', mt: 4 }}>
-      <Typography variant="h5" sx={{ color: '#4aa56d', fontWeight: 600, textTransform: 'uppercase' }}>
+    <Paper
+      elevation={3}
+      sx={{
+        width: "100%",
+        maxWidth: 400, // Keeps form well-sized
+        p: 3,
+        mx: "auto",
+        backgroundColor: "transparent", // Removed background color
+        boxShadow: "none", // Removed extra styling
+      }}
+    >
+      <Typography variant="h5" sx={{ color: '#4aa56d', fontWeight: 600, textTransform: 'uppercase', textAlign: "center" }}>
         LOGIN
       </Typography>
-      <Typography variant="body2" sx={{ color: '#fb9d1f', fontWeight: 600, mb: 1 }}>
+      <Typography variant="body2" sx={{ color: '#fb9d1f', fontWeight: 600, textAlign: "center", mb: 1 }}>
         Welcome Back!
       </Typography>
-      <Typography variant="body2" sx={{ color: '#737979', mb: 2 }}>
+      <Typography variant="body2" sx={{ color: '#737979', mb: 2, textAlign: "center" }}>
         Enter your email and password to login
       </Typography>
 
@@ -80,14 +75,15 @@ const LoginForm = ({ setShowForgotPassword }) => {
           <Form>
             <Grid container spacing={2}>
               {/* User Type Selection */}
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{ textAlign: "center" }}>
                 <RadioGroup
                   row
                   value={values.type}
                   onChange={(e) => setFieldValue('type', e.target.value)}
+                  sx={{ justifyContent: "center" }}
                 >
-                  <FormControlLabel value="buyer" control={<StyledRadio />} label="Buyer" />
-                  <FormControlLabel value="seller" control={<StyledRadio />} label="Seller" />
+                  <FormControlLabel value="buyer" control={<Radio color="primary" />} label="Buyer" />
+                  <FormControlLabel value="seller" control={<Radio color="primary" />} label="Seller" />
                 </RadioGroup>
               </Grid>
 
@@ -143,7 +139,7 @@ const LoginForm = ({ setShowForgotPassword }) => {
                   sx={{ color: '#898f8f', cursor: 'pointer' }}
                   onClick={() => setShowForgotPassword && setShowForgotPassword(true)}
                 >
-                  Forgot Password
+                  Forgot Password?
                 </Typography>
               </Grid>
 

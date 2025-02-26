@@ -6,19 +6,14 @@ import banner from "../assets/images/banner-03.png";
 // Outer Wrapper
 const HeroContainer = styled(Box)({
   backgroundColor: '#f5f5fe',
-  padding: '40px', 
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  minHeight: '50vh',
+  padding: 0,
   width: '100%',
-  overflow: 'hidden' 
+  overflow: 'hidden'
 });
 
-// Image Wrapper
-const ImageWrapper = styled(Box)({
+// Image Wrapper completely revised for true responsiveness
+const ImageWrapper = styled(Box)(({ theme }) => ({
   position: 'relative',
-  minHeight: '80vh',
   backgroundImage: `url(${banner})`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
@@ -26,12 +21,28 @@ const ImageWrapper = styled(Box)({
   display: 'flex',
   alignItems: 'flex-end',
   justifyContent: 'flex-start',
-  padding: '30px', 
-  margin: '15px auto', 
-  width: '100%', 
+  padding: '30px',
+  width: '100%',
   maxWidth: '1400px',
-  height: 'auto' 
-});
+  margin: '15px auto 0',
+  minHeight: '80vh',
+
+  // Responsive adjustments
+  [theme.breakpoints.down('lg')]: {
+    minHeight: '75vh',
+  },
+  [theme.breakpoints.down('md')]: {
+    minHeight: '70vh',
+  },
+  [theme.breakpoints.down('sm')]: {
+    minHeight: '60vh',
+    padding: '20px',
+    alignItems: 'center',
+  },
+  [theme.breakpoints.down('xs')]: {
+    minHeight: '50vh',
+  }
+}));
 
 // Button Animation
 const halfCircleAnimation = keyframes`
@@ -41,16 +52,15 @@ const halfCircleAnimation = keyframes`
 
 const ShopButton = styled(Button)({
   backgroundColor: '#f5a623',
-  color: '#ffffff', 
+  color: '#ffffff',
   borderRadius: '15px',
-  padding: '16px 32px', 
+  padding: '16px 32px',
   fontWeight: '800',
-  fontSize: "1.2rem", 
+  fontSize: "1.2rem",
   textTransform: 'uppercase',
   position: 'relative',
-  zIndex: 2, 
+  zIndex: 2,
   overflow: 'visible',
-
   '&::before': {
     position: 'absolute',
     left: 0,
@@ -63,63 +73,94 @@ const ShopButton = styled(Button)({
     transform: 'scaleX(0)',
     transformOrigin: 'right',
     animation: `${halfCircleAnimation} 2s ease-in-out forwards`,
-    zIndex: 0, 
+    zIndex: 0,
   },
   '&:hover': {
     backgroundColor: '#e69c20'
   }
 });
 
+// To ensure paragraph aligns with image width
+const ContentContainer = styled(Box)({
+  width: '100%',
+  maxWidth: '1400px',
+  margin: '0 auto',
+});
+
 const HeroSection = () => {
   return (
     <HeroContainer>
-      <Container maxWidth={true} disableGutters>
-        <Grid container justifyContent="center">
-          <Grid item xs={12}>
-            <ImageWrapper>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={8} md={6} lg={5} sx={{ maxWidth: '100%', ml: 4 }}> 
-                  <Typography 
-                    variant="h3" 
-                    sx={{ 
-                      fontWeight: 'bold', 
-                      fontSize: { xs: '2.5rem', md: '3rem' }, 
-                      mb: "1.5rem",
-                      color: "white",
-                      whiteSpace: 'nowrap', 
-                      textAlign: 'left'
-                    }}
-                  >
-                    THE XCHANGE MARKETPLACE
-                  </Typography>
-
-                  <Typography 
-                    variant="h5" 
-                    sx={{ 
-                      fontWeight: 'bold', 
-                      fontSize: { xs: '1.2rem', md: '2rem' }, 
-                      mb: "1rem",
-                      mt:1,
-                      color: "white",
-                      whiteSpace: 'nowrap', 
-                      textAlign: 'left'
-                    }}
-                  >
-                    for Buyers & Sellers of Testing Equipment
-                  </Typography>
-
-                  <ShopButton variant="contained">
-                    START SHOPPING
-                  </ShopButton>
-                </Grid>
-              </Grid>
-            </ImageWrapper>
+      {/* Image section */}
+      <ImageWrapper>
+        <Grid container spacing={2}>
+          <Grid 
+            item 
+            xs={12} 
+            sm={10} 
+            md={8} 
+            lg={5} 
+            sx={{ 
+              ml: { xs: 0, sm: 2, md: 4 },
+              px: { xs: 1, sm: 2 }
+            }}
+          >
+            <Typography
+              variant="h3"
+              sx={{
+                fontWeight: 'bold',
+                fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem', lg: '3rem' },
+                mb: "1.5rem",
+                color: "white",
+                whiteSpace: { xs: 'normal', md: 'nowrap' },
+                textAlign: 'left'
+              }}
+            >
+              THE XCHANGE MARKETPLACE
+            </Typography>
+            
+            <Typography
+              variant="h5"
+              sx={{
+                fontWeight: 'bold',
+                fontSize: { xs: '0.9rem', sm: '1.2rem', md: '1.5rem', lg: '2rem' },
+                mb: "1rem",
+                mt: 1,
+                color: "white",
+                whiteSpace: { xs: 'normal', md: 'nowrap' },
+                textAlign: 'left'
+              }}
+            >
+              for Buyers & Sellers of Testing Equipment
+            </Typography>
+            
+            <ShopButton 
+              variant="contained"
+              sx={{
+                fontSize: { xs: '0.8rem', sm: '1rem', md: '1.2rem' },
+                padding: { xs: '10px 20px', sm: '12px 24px', md: '16px 32px' }
+              }}
+            >
+              START SHOPPING
+            </ShopButton>
           </Grid>
-          <Typography paragraph sx={{ fontSize: '18px', lineHeight: '1.6', fontFamily: 'Montserrat', m: 5.5, maxWidth: '1400px', margin: '0 auto' }}>
-            Developed by Scientists and Engineers, XCHANGEMarketplace.com is an independent subscription-based marketplace website for buying and selling new, used, ex-demonstration and refurbished testing equipment and supplies. Our aim is to offer a resale platform which specifically targets the underserved industrial and academic sectors.
-          </Typography>
         </Grid>
-      </Container>
+      </ImageWrapper>
+
+      {/* Description paragraph */}
+      <ContentContainer>
+        <Typography 
+          paragraph 
+          sx={{ 
+            fontSize: { xs: '16px', md: '18px' }, 
+            lineHeight: '1.6', 
+            fontFamily: 'Montserrat',
+            padding: { xs: '15px', sm: '20px', md: '20px' },
+            margin: 0,
+          }}
+        >
+          Developed by Scientists and Engineers, XCHANGEMarketplace.com is an independent subscription-based marketplace website for buying and selling new, used, ex-demonstration and refurbished testing equipment and supplies. Our aim is to offer a resale platform which specifically targets the underserved industrial and academic sectors.
+        </Typography>
+      </ContentContainer>
     </HeroContainer>
   );
 };

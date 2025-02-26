@@ -9,51 +9,68 @@ const HEADER_HEIGHT = 80;
 const FOOTER_HEIGHT = 60;
 
 const PageWrapper = styled(Box)(({ theme }) => ({
-    minHeight: `calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px)`,
-    position: "relative",
-    backgroundImage: `url(${bgImg})`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "100%", 
-    backgroundPosition: "center",
-    display: "flex",
-    justifyContent: "center", 
-    alignItems: "center", 
-    overflow: "hidden",
-  }));
-  
-  const StyledContainer = styled(Paper)(({ theme }) => ({
-    minHeight: "75vh", 
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: theme.spacing(4),
-    borderRadius: 0,
-    backgroundColor: "transparent",
-    boxShadow: "none",
-    marginTop: "20vh",
-  }));
-  
-  
-  
+  minHeight: `calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px)`,
+  position: "relative",
+  backgroundImage: `url(${bgImg})`,
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "contain", // ✅ Makes the image smaller
+  backgroundPosition: "center center",
+  backgroundAttachment: "fixed", // Keeps the image in place
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: theme.spacing(2),
+}));
+
+const StyledContainer = styled(Paper)(({ theme }) => ({
+  minHeight: "75vh",
+  width: "90%",
+  maxWidth: "450px",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: theme.spacing(4),
+  borderRadius: 10,
+  backgroundColor: "rgba(255, 255, 255, 0.6)",
+  backdropFilter: "blur(8px)",
+  boxShadow: theme.shadows[5],
+  overflowY: "hidden",
+}));
+
 function CombinePage() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <PageWrapper>
-      <Grid container sx={{ height: '100%' }}>
-        <Grid item xs={12} md={6} sx={{ height: isMobile ? '50vh' : '100%' }}>
+      <Grid 
+        container 
+        justifyContent="center" 
+        alignItems="center" 
+        sx={{ minHeight: "100%", width: "100%", paddingBottom: 2 }}
+      >
+        <Grid 
+          item 
+          xs={12} 
+          md={6} 
+          sx={{ display: 'flex', justifyContent: 'center', paddingBottom: isMobile ? 3 : 0 }}
+        >
           <StyledContainer>
-            <Box sx={{ maxWidth: '400px', width: '100%' }}>
+            <Box sx={{ width: "100%" }}>
               <LoginComponent />
             </Box>
           </StyledContainer>
         </Grid>
-        <Grid item xs={12} md={6} sx={{ height: isMobile ? '50vh' : '100%' }}>
+
+        <Grid 
+          item 
+          xs={12} 
+          md={6} 
+          sx={{ display: 'flex', justifyContent: 'center', paddingTop: isMobile ? 3 : 0 }}
+        >
           <StyledContainer>
-            <Box sx={{ maxWidth: '400px', width: '100%' }}>
+            <Box sx={{ width: "100%" }}>
               <SignupComponent />
             </Box>
           </StyledContainer>

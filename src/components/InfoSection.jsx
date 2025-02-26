@@ -8,32 +8,31 @@ import beforeImg from "../assets/images/welcome-bg-img.png";
 
 const SectionContainer = styled(Box)({
   backgroundColor: '#f5f7fa',
-  paddingTop:0,
+  paddingTop: 0,
   position: "relative",
   overflow: "hidden",
 });
 
+// Updated BackgroundContainer to match original CSS
 const BackgroundContainer = styled(Box)({
-    position: "relative",
-    paddingTop: "4em",
-    paddingBottom: "6.5em",
-    background: `url(${backgroundImg}) center top no-repeat`, // Moves the image to the upper part
-    backgroundSize: "contain", // Adjusts the size to fit within the container
-    width: "90%",
-    height: "90%",
-    zIndex: 1,
-    "&::before": {
-      content: '""',
-      position: "absolute",
-      left: "4em",  
-      bottom: "2em",  
-      background: `url(${beforeImg}) no-repeat 0 0`,
-      width: "5em",  
-      height: "5em",
-      zIndex: -1,
-    }
-  });
-  
+  position: "relative",
+  paddingTop: "6em",
+  paddingBottom: "6.5em",
+  background: `url(${backgroundImg}) no-repeat 50% -50px`,
+  backgroundSize: "auto", // Changed to auto instead of contain
+  width: "100%",
+  zIndex: 1,
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    left: "4em",  
+    bottom: "2em",  
+    background: `url(${beforeImg}) no-repeat 0 0`,
+    width: "5em",  
+    height: "5em",
+    zIndex: -1,
+  }
+});
 
 const VideoContainer = styled(Box)({
   display: 'flex',
@@ -76,8 +75,6 @@ const ContentContainer = styled(Box)({
 
 const InfoSection = () => {
   return (
-    <>
-   
     <SectionContainer>
       <BackgroundContainer>
         <Container maxWidth="lg">
@@ -128,7 +125,6 @@ const InfoSection = () => {
         </Container>
       </BackgroundContainer>
     </SectionContainer>
-    </>
   );
 };
 
