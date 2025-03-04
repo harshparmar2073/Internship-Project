@@ -69,7 +69,7 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("HOME");
   const isMobile = useMediaQuery("(max-width:900px)");
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate(); 
 
   const handleMenuToggle = () => {
     setMobileMenuOpen(!mobileMenuOpen);

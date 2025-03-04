@@ -81,11 +81,20 @@ const ShopButton = styled(Button)({
 });
 
 // To ensure paragraph aligns with image width
-const ContentContainer = styled(Box)({
+const ContentContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '1400px',
-  margin: '0 auto',
-});
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start', 
+  paddingLeft: '30px', 
+  paddingTop: '10px',  
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: '20px',
+  }
+}));
+
+
 
 const HeroSection = () => {
   return (
@@ -148,16 +157,17 @@ const HeroSection = () => {
 
       {/* Description paragraph */}
       <ContentContainer>
-        <Typography 
-          paragraph 
-          sx={{ 
-            fontSize: { xs: '16px', md: '18px' }, 
-            lineHeight: '1.6', 
-            fontFamily: 'Montserrat',
-            padding: { xs: '15px', sm: '20px', md: '20px' },
-            margin: 0,
-          }}
-        >
+      <Typography 
+        paragraph 
+        sx={{ 
+        fontSize: { xs: '16px', md: '18px' }, 
+       lineHeight: '1.6', 
+        fontFamily: 'Montserrat',
+        padding: 0,
+        textAlign: 'left'
+      }}
+      >
+
           Developed by Scientists and Engineers, XCHANGEMarketplace.com is an independent subscription-based marketplace website for buying and selling new, used, ex-demonstration and refurbished testing equipment and supplies. Our aim is to offer a resale platform which specifically targets the underserved industrial and academic sectors.
         </Typography>
       </ContentContainer>

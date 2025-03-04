@@ -9,6 +9,8 @@ import Footer from "./components/Footer";
 import ShopPage from "./Pages/Shop";
 import { Box, Typography } from "@mui/material";
 import SellerHub from "./Pages/SellerHub";
+import BuyerHub from "./Pages/BuyerHub";
+import Shop from "./Pages/Shop";
 
 const theme = createTheme({
   palette: {
@@ -45,8 +47,9 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<CombinePage />} />
-          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/shop" element={<Shop/>} />
           <Route path="/seller" element={<SellerHub/>} />
+          <Route path="/buyer" element={<BuyerHub/>}/>
         </Routes>
       </main>
 

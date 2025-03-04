@@ -1,11 +1,7 @@
 import axios from "axios";
-// import { toast } from 'react-toastify';
 
 const api = axios.create({
-  // baseURL: "https://xhrf-api.herokuapp.com/v1/",
-  // baseURL: "https://exchange-marketplace-865653925151.herokuapp.com/v1/",
-  baseURL: "https://api.thexchangemarketplace.com/v1/",
-  // baseURL: 'http://240c-2405-204-8103-c3d9-c9d1-bdef-5e92-4f1d.ngrok.io/',
+  baseURL: "https://api.thexchangemarketplace.com/v1/", // Ensure this is correct
   headers: {
     Apptoken: "X3qGRkZY-BB786BB-XYZ6653-MA2123",
   },
@@ -13,19 +9,14 @@ const api = axios.create({
 
 api.interceptors.request.use(
   function (config) {
-    if (
-      !localStorage.getItem("token") &&
-      localStorage.getItem("token") === null &&
-      window.location.pathname !== "/" &&
-      window.location.pathname !== "/loginpage" &&
-      window.location.pathname !== "/xchangeShop" &&
-      window.location.pathname !== "/cart" &&
-      !window.location.pathname.includes("/admin")
-    ) {
+    const token = localStorage.getItem("token");
+    
+    if (!token && !["/", "/login", "/shop", "/seller", "/buyer"].includes(window.location.pathname) && !window.location.pathname.includes("/admin")) {
       window.location.href = window.location.origin;
-    } else {
-      config.headers["Authorization"] = localStorage.getItem("token");
+    } else if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`; // Ensuring Bearer token format
     }
+    
     return config;
   },
   function (error) {
@@ -39,23 +30,16 @@ api.interceptors.response.use(
       localStorage.removeItem("token");
       localStorage.removeItem("profileAdded");
       window.location.href = window.location.origin;
-      return Promise.reject("");
+      return Promise.reject("User not logged in.");
     }
-
-    // if (
-    //     response !== null ||
-    //     response.data !== null ||
-    //     response.data.errors.length !== 0
-    // ) {
-    //     response.data.errors.forEach((e) =>
-    //         openSnackbar('error',e),
-    //     );
-    // } else {
-    //     // openSnackbar('error',error.message);
-    // }
     return response;
   },
   function (error) {
+    if (error.response) {
+      console.error("API Response Error:", error.response.status, error.response.data);
+    } else {
+      console.error("Network/Server Error:", error.message);
+    }
     return Promise.reject(error);
   }
 );
