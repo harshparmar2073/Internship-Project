@@ -22,7 +22,7 @@ const Shop = () => {
 
       {/* No Products Message */}
       <Box sx={{ textAlign: "left", ml: "5%", mt: 2 }}>
-        <Typography variant="body1" color="textSecondary">
+        <Typography variant="h5" color="textprimary">
           No Products
         </Typography>
       </Box>
