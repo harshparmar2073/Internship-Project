@@ -8,6 +8,7 @@ import {
   Link 
 } from '@mui/material';
 import { styled, keyframes } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import banner from "../assets/images/newbg.png";
 import signUpIcon from "../assets/images2/icon-buy-1.png";
 import listIcon from "../assets/images2/icon-sell-2.png";
@@ -133,6 +134,13 @@ const steps = [
 ];
 
 const SellerHub = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  // Handler to redirect to /shop route
+  const handleStartSelling = () => {
+    navigate('/shop');
+  };
+
   return (
     <HeroContainer>
       {/* Hero Section */}
@@ -171,7 +179,8 @@ const SellerHub = () => {
               A Secure Online Portal for Sellers
             </Typography>
             <ShopButton 
-              variant="contained" 
+              variant="contained"
+              onClick={handleStartSelling} // Add onClick event
               sx={{ 
                 fontSize: { xs: '0.8rem', sm: '1rem', md: '1.2rem' }, 
                 padding: { xs: '10px 20px', sm: '12px 24px', md: '16px 32px' } 
@@ -227,9 +236,9 @@ const SellerHub = () => {
           {/* Steps Grid */}
           <Grid
             container
-            spacing={4}                  // More space between columns
+            spacing={4}
             justifyContent="space-evenly"
-            sx={{ px: { xs: 2, md: 8 } }} // Extra space from left/right
+            sx={{ px: { xs: 2, md: 8 } }}
           >
             {steps.map((step, index) => (
               <Grid 
@@ -239,8 +248,7 @@ const SellerHub = () => {
                 sm={6} 
                 md={2} 
                 lg={2} 
-                xl={2} 
-                // md=2 * 5 items = 10 columns, 2 columns remain for spacing
+                xl={2}
               >
                 <StepItem>
                   <Avatar 

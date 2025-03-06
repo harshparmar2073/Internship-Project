@@ -11,6 +11,7 @@ import { Box, Typography } from "@mui/material";
 import SellerHub from "./Pages/SellerHub";
 import BuyerHub from "./Pages/BuyerHub";
 import Shop from "./Pages/Shop";
+import Support from "./components/Support";
 
 const theme = createTheme({
   palette: {
@@ -27,7 +28,7 @@ const theme = createTheme({
 
 function App() {
   const location = useLocation();
-  const isAuthPage = location.pathname === "/login"; // Check if on login/signup page
+  const isAuthPage = location.pathname === "/login";
 
   return (
     <ThemeProvider theme={theme}>
@@ -50,6 +51,7 @@ function App() {
           <Route path="/shop" element={<Shop/>} />
           <Route path="/seller" element={<SellerHub/>} />
           <Route path="/buyer" element={<BuyerHub/>}/>
+          <Route path="/support" element={<Support/>}/>
         </Routes>
       </main>
 

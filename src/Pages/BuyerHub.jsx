@@ -40,6 +40,7 @@ import step3Icon from "../assets/images/sell-pro-03.png";
 import step4Icon from "../assets/images/sell-pro-04.png";
 import ReviewSection from '../components/ReviewSection';
 
+import { useNavigate } from 'react-router';
 // --- Styled Components ---
 
 // Outer Wrapper
@@ -394,6 +395,7 @@ const Dot = styled("span")({
 // --- BuyerHub Component ---
 
 const BuyerHub = () => {
+  const navigate =useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
@@ -415,6 +417,9 @@ const BuyerHub = () => {
     { step: "STEP 4", text: "List Your Product", color: "#ff9d00", icon: step4Icon },
   ];
 
+  const handleShopping =()=>{
+    navigate("/shop")
+  }
   return (
     <>
       <HeroContainer>
@@ -428,8 +433,8 @@ const BuyerHub = () => {
               <Typography variant="h5" sx={{ fontWeight: 'bold', fontSize: { xs: '0.9rem', sm: '1.2rem', md: '1.5rem', lg: '2rem' }, mb: "1rem", color: "white", textAlign: 'left' }}>
                 A Secure Online Portal for Sellers
               </Typography>
-              <ShopButton variant="contained" sx={{ fontSize: { xs: '0.8rem', sm: '1rem', md: '1.2rem' }, padding: { xs: '10px 20px', sm: '12px 24px', md: '16px 32px' } }}>
-                START SELLING
+              <ShopButton variant="contained" onClick={handleShopping} sx={{ fontSize: { xs: '0.8rem', sm: '1rem', md: '1.2rem' }, padding: { xs: '10px 20px', sm: '12px 24px', md: '16px 32px' } }}>
+                START SHOPPING
               </ShopButton>
             </Grid>
           </Grid>

@@ -106,7 +106,7 @@ const FeaturedProduct = () => {
 
   return (
     <Container maxWidth="xl" sx={{ mt: 4 }}>
-      <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold' }}>
+      <Typography variant="h5" sx={{ mb: 2, fontWeight: '700',textAlign:"left" }}>
         Shop by
       </Typography>
       <Grid container spacing={3}>
@@ -272,13 +272,13 @@ const FeaturedProduct = () => {
             }}
           >
             {/* Previous / Next */}
-            <Box>
+            <Box sx={{mb:3}}>
               <Button 
                 variant="outlined" 
                 size="small" 
                 onClick={handlePrevious}
                 disabled={currentPage <= 1}
-                sx={{ mr: 1 }}
+                sx={{ mr: 2 }}
               >
                 Previous
               </Button>
@@ -286,7 +286,7 @@ const FeaturedProduct = () => {
                 variant="outlined" 
                 size="small" 
                 onClick={handleNext}
-                sx={{ mr: 1 }}
+                sx={{ mr: 2 }}
               >
                 Next
               </Button>
@@ -297,17 +297,15 @@ const FeaturedProduct = () => {
 
             {/* Items per page */}
             <Box display="flex" alignItems="center">
-              <Typography variant="body2" sx={{ mr: 1 }}>
-                Items per page
-              </Typography>
               <Select
                 size="small"
                 value={pageSize}
                 onChange={(e) => setPageSize(e.target.value)}
               >
-                <MenuItem value={5}>5</MenuItem>
                 <MenuItem value={10}>10</MenuItem>
-                <MenuItem value={15}>15</MenuItem>
+                <MenuItem value={20}>20</MenuItem>
+                <MenuItem value={50}>50</MenuItem>
+                <MenuItem value={100}>100</MenuItem>
               </Select>
             </Box>
           </Box>
