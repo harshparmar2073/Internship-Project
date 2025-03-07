@@ -264,20 +264,20 @@ function WhoShouldSellSection() {
 
         {/* Updated Overlap Image Section */}
         <Box
-          component="img"
-          src={overlapImage}
-          alt="Why Buy"
-          sx={{
-            width: "120%",
-            maxWidth: "2000px",
-            height: "auto",
-            position: "relative",
-            top: "-100px", 
-            left: "50%",
-            transform: "translateX(-50%)",
-            mb: { xs: 2, md: 8 },
-          }}
-        />
+  component="img"
+  src={overlapImage}
+  alt="Why Buy"
+  sx={{
+    width: "120%",
+    maxWidth: "2000px",
+    height: "auto",
+    position: "relative",
+    top: { xs: "-50px", md: "-100px" }, // Less negative on mobile
+    left: "50%",
+    transform: "translateX(-50%)",
+    mb: { xs: 2, md: 8 },
+  }}
+/>
 
         {/* HOW TO SELL Section */}
         <Box sx={{ width: "100%", maxWidth: "1200px", px: { xs: 2, md: 3 }, mt: 4 }}>

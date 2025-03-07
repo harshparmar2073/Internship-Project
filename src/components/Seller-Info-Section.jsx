@@ -137,7 +137,7 @@ const SellerInfoSection = () => {
                   color: '#666', 
                   lineHeight: '2', 
                   fontFamily: 'Montserrat',
-                  textAlign: { xs: 'center', md: 'left' },
+                  textAlign: { xs: 'left', md: 'left' },
                   marginBottom: 0,
                   marginLeft:6
                 }}>

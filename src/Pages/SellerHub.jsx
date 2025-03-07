@@ -8,7 +8,7 @@ import {
   Link 
 } from '@mui/material';
 import { styled, keyframes } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import banner from "../assets/images/newbg.png";
 import signUpIcon from "../assets/images2/icon-buy-1.png";
 import listIcon from "../assets/images2/icon-sell-2.png";
@@ -17,7 +17,7 @@ import shipIcon from "../assets/images2/Ship-it.png";
 import getPaidIcon from "../assets/images2/Get-Paid.png";
 import WhoShouldSellSection from '../components/Who-Should-Sell-Section';
 import SellerInfoSection from '../components/Seller-Info-Section';
-import ReviewSection from '../components/ReviewSection';
+import ReviewSectionSellerBuyer from '../components/Review-Section-Seller-Buyer';
 
 // Outer Wrapper
 const HeroContainer = styled(Box)({
@@ -201,7 +201,7 @@ const SellerHub = () => {
             lineHeight: '1.6', 
             fontFamily: 'Montserrat',
             padding: 0,
-            textAlign: 'left'
+            textAlign: 'justify'
           }}
         >
           Developed by Scientists and Engineers, XCHANGEMarketplace.com is an independent subscription-based marketplace website for buying and selling new, used, ex-demonstration, and refurbished testing equipment and supplies. Our aim is to offer a resale platform that specifically targets the underserved industrial and academic sectors.
@@ -319,7 +319,7 @@ const SellerHub = () => {
       <Box sx={{ width: "90%", maxWidth: "1200px", mx: "auto", py: 5 }}>
         <SellerInfoSection/>
         <WhoShouldSellSection />
-        <ReviewSection />
+        <ReviewSectionSellerBuyer/>
       </Box>
     </HeroContainer>
   );

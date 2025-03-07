@@ -38,9 +38,8 @@ import step1Icon from "../assets/images/sell-pro.png";
 import step2Icon from "../assets/images/sell-pro-02.png";
 import step3Icon from "../assets/images/sell-pro-03.png";
 import step4Icon from "../assets/images/sell-pro-04.png";
-import ReviewSection from '../components/ReviewSection';
-
 import { useNavigate } from 'react-router';
+import ReviewSectionSellerBuyer from '../components/Review-Section-Seller-Buyer';
 // --- Styled Components ---
 
 // Outer Wrapper
@@ -267,10 +266,10 @@ const WhoShouldSellContainer = styled(Box)(({ theme }) => ({
     boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
     textAlign: "left",
     position: "relative",
-    marginBottom: "-80px",
+    marginBottom: "-50px",
     zIndex: 2,
     [theme.breakpoints.down("sm")]: {
-      marginBottom: "-50px",
+      marginBottom: "-30px",
       padding: "2rem 1.5rem",
     },
 }));
@@ -347,8 +346,8 @@ const SellingContainer = styled(Box)({
 });
 
 const SellingImage = styled("img")(({ theme }) => ({
-  width: "100%", 
-  maxWidth: "600px", 
+  width: "100%",
+  maxWidth: "600px",
   height: "auto",
   display: "block",
   margin: "0 auto",
@@ -356,10 +355,11 @@ const SellingImage = styled("img")(({ theme }) => ({
   top: "40px",
   zIndex: 1,
   [theme.breakpoints.down("sm")]: {
-    top: "20px",
+    top: "0",       // Remove offset on mobile
     maxWidth: "350px",
   },
 }));
+
 
 const BulletPointsContainer = styled(Grid)({
   display: "flex",
@@ -442,18 +442,19 @@ const BuyerHub = () => {
 
         {/* Description Section */}
         <ContentContainer>
-          <Typography 
-            paragraph 
-            sx={{ 
-              fontSize: { xs: '16px', md: '18px' }, 
-              lineHeight: '1.6', 
-              fontFamily: 'Montserrat',
-              padding: 0,
-              textAlign: 'left'
-            }}
-          >
-            Developed by Scientists and Engineers, XCHANGEMarketplace.com is an independent subscription-based marketplace website for buying and selling new, used, ex-demonstration, and refurbished testing equipment and supplies. Our aim is to offer a resale platform that specifically targets the underserved industrial and academic sectors.
-          </Typography>
+        <Typography 
+  paragraph 
+  sx={{ 
+    fontSize: { xs: '16px', md: '18px' }, 
+    lineHeight: '1.6', 
+    fontFamily: 'Montserrat',
+    padding: 0,
+    textAlign: 'justify'  // Changed to justify the text
+  }}
+>
+  Developed by Scientists and Engineers, XCHANGEMarketplace.com is an independent subscription-based marketplace website for buying and selling new, used, ex-demonstration, and refurbished testing equipment and supplies. Our aim is to offer a resale platform that specifically targets the underserved industrial and academic sectors.
+</Typography>
+
         </ContentContainer>
 
         {/* Get Started Section */}
@@ -600,16 +601,20 @@ const BuyerHub = () => {
                       HOW BUYING ON THE XCHANGE MARKETPLACE WORKS
                     </Typography>
 
-                    <Typography paragraph sx={{
-                      fontSize: { xs: '16px', md: '18px' },
-                      color: '#444',
-                      lineHeight: '1.6',
-                      fontFamily: 'Montserrat',
-                      mt: 1,
-                      textAlign: { xs: 'center', md: 'left' }
-                    }}>
-                      Enjoy a seamless shopping experience with The XCHANGE MARKETPLACE, Save money and discover unique products from a wide array of businesses. Explore a diverse marketplace where every visit is an opportunity to purchase something special. Find and connect with companies offering exactly what you need. Take advantage of this innovative e-commerce platform to find great deals and explore new products.
-                    </Typography>
+                    <Typography 
+  paragraph 
+  sx={{
+    fontSize: { xs: '16px', md: '18px' },
+    color: '#444',
+    lineHeight: '1.6',
+    fontFamily: 'Montserrat',
+    mt: 1,
+    textAlign: 'justify'  // Changed to justify the text
+  }}
+>
+  Enjoy a seamless shopping experience with The XCHANGE MARKETPLACE, Save money and discover unique products from a wide array of businesses. Explore a diverse marketplace where every visit is an opportunity to purchase something special. Find and connect with companies offering exactly what you need. Take advantage of this innovative e-commerce platform to find great deals and explore new products.
+</Typography>
+
                   </ContentContainer2>
                 </Grid>
               </Grid>
@@ -737,17 +742,19 @@ const BuyerHub = () => {
 
         {/* Why Sell Section */}
         <WhySellContainer>
-          <Box
-            component="img"
-            src={sellImg}
-            alt="Why Buy"
-            sx={{
-              width: "100%",
-              maxWidth: "1400px",
-              height: "auto",
-              mb: { xs: 4, md: 10 },
-            }}
-          />
+        <Box
+  component="img"
+  src={sellImg}
+  alt="Why Buy"
+  sx={{
+    width: "100%",
+    maxWidth: "1400px",
+    height: "auto",
+    mb: { xs: 8, md: 10 }, // Increased margin for mobile devices
+    position: "relative",
+    zIndex: 1,
+  }}
+/>
 
           <Box sx={{ width: "100%", maxWidth: "1200px", px: { xs: 2, md: 3 } }}>
             <Grid container spacing={{ xs: 2, md: 4 }} alignItems="center">
@@ -942,7 +949,7 @@ const BuyerHub = () => {
         </WhySellContainer>
       </HeroContainer>
 
-      <ReviewSection />
+      <ReviewSectionSellerBuyer/>
     </>
   );
 };

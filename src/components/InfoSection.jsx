@@ -108,13 +108,30 @@ const InfoSection = () => {
                 </HeadingContainer>
 
                 {/* Content */}
-                <Typography paragraph sx={{ fontSize: '18px', lineHeight: '1.6', fontFamily: 'Montserrat', mb: 2 }}>
+                <Typography
+                  paragraph
+                  sx={{
+                    fontSize: '18px',
+                    lineHeight: '1.6',
+                    fontFamily: 'Montserrat',
+                    mb: 2,
+                    textAlign: 'justify'
+                  }}
+                >
                   Developed by Scientists and Engineers, XCHANGEMarketplace.com is an independent subscription-based
                   marketplace for buying and selling new, used, ex-demonstration, and refurbished testing equipment and supplies. 
                   Our aim is to offer a resale platform that specifically targets the underserved industrial and academic sectors.
                 </Typography>
 
-                <Typography paragraph sx={{ fontSize: '18px', lineHeight: '1.6', fontFamily: 'Montserrat' }}>
+                <Typography
+                  paragraph
+                  sx={{
+                    fontSize: '18px',
+                    lineHeight: '1.6',
+                    fontFamily: 'Montserrat',
+                    textAlign: 'justify'
+                  }}
+                >
                   Our founders have more than 100 years of experience in the instrumentation industry, connecting testing
                   personnel to the equipment and supplies they need. Our platform is a dynamic and innovative online
                   marketplace that is one of the only ones to support uploaded video clips, enhancing users' experience.

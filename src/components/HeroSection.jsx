@@ -164,7 +164,7 @@ const HeroSection = () => {
        lineHeight: '1.6', 
         fontFamily: 'Montserrat',
         padding: 0,
-        textAlign: 'left'
+        textAlign: 'justify'
       }}
       >
 

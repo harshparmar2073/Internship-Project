@@ -45,10 +45,11 @@ function Support() {
                 size="large"
                 sx={{
                   backgroundColor: "rgb(248, 158, 35)",
+                  color: "white",
                   px: { xs: 2, md: 3 },
                   borderRadius: "15px",
                   fontSize: { xs: ".8rem", md: "1.3rem" },
-                  "&:hover": { backgroundColor: "rgb(230, 140, 30)" },
+                  "&:hover": { backgroundColor:"black", color:"white" },
                   boxShadow: "0px 2px 5px rgba(0,0,0,0.3)",
                 }}
               >
@@ -135,11 +136,13 @@ function Support() {
           >
             +1-844-727-5001
           </Link>
+          </Typography>
           <br />
+          <Typography mb={1}> 
           Our dedicated support team is available from Monday to Friday, 9:00 AM to 6:00 PM (UTC-5).
-        </Typography>
+          </Typography>
+       
       </Box>
-
       {/* FAQ Section */}
       <Box sx={{ my: { xs: 2, md: 3 }, px: { xs: 2, md: 0 } }}>
         <Typography
@@ -269,7 +272,6 @@ function Support() {
         </Typography>
       </Box>
 
-      {/* Closing Signature */}
       <Box
         sx={{
           my: { xs: 3, md: 4 },
