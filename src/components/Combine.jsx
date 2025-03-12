@@ -163,10 +163,18 @@ function SignupForm() {
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      // For demo purposes we simply log the values
-      console.log("Signup Form submitted:", values);
-
-      // Redirecting after successful signup (adjust as needed)
+      // Replace "auth/signup" with your actual signup endpoint if needed.
+      const { data } = await api.post("auth/signup", values);
+  
+      // Store the returned data and token in localStorage.
+      localStorage.setItem("data", JSON.stringify(data.data));
+      localStorage.setItem("token", "Bearer " + data.authToken);
+      localStorage.setItem("type", values.type);
+  
+      // Set the default authorization header for future API calls.
+      api.defaults.headers.common["Authorization"] = "Bearer " + data.authToken;
+  
+      // Redirect to the verification page after successful signup.
       navigate("/verification");
       resetForm();
     } catch (error) {
@@ -175,7 +183,7 @@ function SignupForm() {
       setSubmitting(false);
     }
   };
-
+  
   return (
     <FormContainer>
       <Title>Sign up</Title>
@@ -463,15 +471,18 @@ function LoginForm({ setShowForgotPassword }) {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      const { data } = await api.post(
-        values.type === "buyer" ? "auth/buyer" : "auth/seller",
-        values
-      );
-
+      const endpoint = values.type === "buyer" ? "auth/buyer" : "auth/seller";
+      const { data } = await api.post(endpoint, values);
+  
+      // Store the returned data and token in localStorage.
       localStorage.setItem("data", JSON.stringify(data.data));
       localStorage.setItem("token", "Bearer " + data.authToken);
       localStorage.setItem("type", values.type);
-
+  
+      // Set the default authorization header for future API calls.
+      api.defaults.headers.common["Authorization"] = "Bearer " + data.authToken;
+  
+      // Redirect based on user type.
       navigate(values.type === "buyer" ? "/myacc" : "/overview");
     } catch (error) {
       console.error("Login error:", error);
@@ -479,6 +490,7 @@ function LoginForm({ setShowForgotPassword }) {
       setSubmitting(false);
     }
   };
+  
 
   return (
     <Paper

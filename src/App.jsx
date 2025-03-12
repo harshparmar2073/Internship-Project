@@ -6,7 +6,6 @@ import HomePage from "./Pages/HomePage";
 import CombinePage from "./components/Combine";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import ShopPage from "./Pages/Shop";
 import { Box, Typography } from "@mui/material";
 import SellerHub from "./Pages/SellerHub";
 import BuyerHub from "./Pages/BuyerHub";
