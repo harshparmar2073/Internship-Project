@@ -9,17 +9,62 @@ const Footer = () => {
   const sections = [
     { 
       title: "THE XCHANGE MARKETPLACE COMPANY", 
-      links: ["Home", "About Us", "Team", "Careers", "Advertise with Us"] 
+      links: [
+        { name: "Home", url: "https://shop.thexchangemarketplace.com/home" },
+        { name: "About Us", url: "https://shop.thexchangemarketplace.com/about-us-discover-our-unique-story-at-the-xchange-marketplace" },
+        { name: "Team", url: "https://shop.thexchangemarketplace.com/xchange-marketplace-team-meet-the-marketing-experts-global-content-the-xchange-marketplace" }, 
+        { name: "Careers", url: "https://shop.thexchangemarketplace.com/career-opportunities-the-xchange-marketplace" },
+        { name: "Advertise with Us", url: "https://shop.thexchangemarketplace.com/advertise-with-us-xchange-marketplace" }
+      ] 
     },
     { 
       title: "SHOP ON THE XCHANGE MARKETPLACE", 
-      links: ["Shop by Category", "Shop by Brand", "Shop by Seller", "Shop by Price", "Shop by Location"] 
+      links: [
+        { name: "Shop by Category", url: "https://shop.thexchangemarketplace.com/explore-trendy-categories" },
+        { name: "Shop by Brand", url: "https://shop.thexchangemarketplace.com/" },
+        { name: "Shop by Seller", url: "https://shop.thexchangemarketplace.com/faq-get-answers-to-your-burning-questions-brandname" },
+        { name: "Shop by Price", url: "https://shop.thexchangemarketplace.com/" },
+        { name: "Shop by Location", url: "https://shop.thexchangemarketplace.com/" }
+      ] 
     },
     { 
       title: "BUY/SELL ON THE XCHANGE MARKETPLACE", 
-      links: ["How to Sell", "Sell Your Equipment", "My Account", "Shipping"] 
+      links: [
+        { name: "How to Sell", url: "https://shop.thexchangemarketplace.com/how-to-sell-ultimate-guide-for-successful-sales-brandname" },
+        { name: "Sell Your Equipment", url: "https://shop.thexchangemarketplace.com/https/thexchangemarketplace.com/how-to-sell-ultimate-guide-for-successful-sales-brandname" },
+        { name: "My Account", url: "/login" },
+        { name: "Shipping", url: "https://shop.thexchangemarketplace.com/shipping-equipment-xchange-marketplace-enhance-your-shipping-experience-with-top-quality-gear" } 
+      ] 
     },
   ];
+
+  const supportSections = [
+    {
+      title: "LEARN ABOUT THE XCHANGE MARKETPLACE",
+      links: [
+        { name: "Service Connect", url: "https://shop.thexchangemarketplace.com/industrial-testing-equipment-service-providers-xrf-oes-analysis-the-xrf-company" }, 
+        { name: "Rent", url: "https://shop.thexchangemarketplace.com/rent-section-explore-schlitz-bicycle-rights-lo-fi-style-everyday-carry-essentials-by-schlitz" },
+        { name: "Lease", url: "https://shop.thexchangemarketplace.com/lease-on-the-xchange-marketplace" },
+        { name: "Terms and Conditions", url: "https://shop.thexchangemarketplace.com/terms-conditions-the-xchange-marketplace" },
+        { name: "Privacy Policy", url: "https://shop.thexchangemarketplace.com/privacy-policy-the-xchange-marketplace" }
+      ]
+    },
+    {
+      title: "THE XCHANGE MARKETPLACE SUPPORT",
+      links: [
+        { name: "Support / Help", url: "https://shop.thexchangemarketplace.com/support/help" },
+        { name: "FAQs", url: "https://shop.thexchangemarketplace.com/faqs-get-answers-to-your-burning-questions-schlitz-brand" },
+        { name: "Contact", url: "https://shop.thexchangemarketplace.com/contact-us-get-in-touch-with-schlitz-for-all-your-questions" },
+
+      ]
+    }
+  ];
+
+  // Function to handle link navigation
+  const handleLinkClick = (e, url) => {
+    e.preventDefault();
+    window.location.href = url;
+  };
 
   return (
     <>
@@ -60,23 +105,19 @@ const Footer = () => {
                 {section.links.map((item, i) => (
                   <Link
                     key={i}
-                    href={
-                      item === "My Account"
-                        ? "/login"
-                        : section.title === "SHOP ON THE XCHANGE MARKETPLACE"
-                          ? "/shop"
-                          : "#"
-                    }
+                    href={item.url}
                     underline="none"
+                    onClick={(e) => item.url !== "#" && handleLinkClick(e, item.url)}
                     sx={{
                       color: "white",
                       display: "block",
                       mb: 1.5,
                       transition: "all 0.5s ease-in",
                       "&:hover": { color: "orange" },
+                      cursor: "pointer",
                     }}
                   >
-                    {item}
+                    {item.name}
                   </Link>
                 ))}
               </Box>
@@ -85,83 +126,48 @@ const Footer = () => {
           {/* Second Row: Support Sections + Join Us & Follow Us */}
           <Grid container spacing={2} sx={{ mt: 2 }}>
             {/* Support Sections */}
-            <Grid item xs={12} sm={4}>
-              <Box sx={{ position: "relative", display: "inline-block", pb: 1 }}>
-                <Typography variant="h6" fontWeight="bold" fontSize="12px" sx={{ pb: 0.5 }}>
-                  LEARN ABOUT THE XCHANGE MARKETPLACE
-                </Typography>
-                <Box
-                  sx={{
-                    position: "absolute",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    bottom: "-3px",
-                    width: "80px",
-                    height: "2px",
-                    backgroundColor: "#ffa200",
-                    borderRadius: "2px",
-                    transition: "all 0.5s ease-in",
-                  }}
-                />
-              </Box>
-              <Box sx={{ pt: 1 }}>
-                {["Service Connect", "Rent", "Lease", "Terms and Conditions", "Privacy Policy"].map((item, i) => (
-                  <Link
-                    key={i}
-                    href="#"
-                    underline="none"
+            {supportSections.map((section, index) => (
+              <Grid key={index} item xs={12} sm={4}>
+                <Box sx={{ position: "relative", display: "inline-block", pb: 1 }}>
+                  <Typography variant="h6" fontWeight="bold" fontSize="12px" sx={{ pb: 0.5 }}>
+                    {section.title}
+                  </Typography>
+                  <Box
                     sx={{
-                      color: "white",
-                      display: "block",
-                      mb: 1.5,
+                      position: "absolute",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      bottom: "-3px",
+                      width: "80px",
+                      height: "2px",
+                      backgroundColor: "#ffa200",
+                      borderRadius: "2px",
                       transition: "all 0.5s ease-in",
-                      "&:hover": { color: "orange" },
                     }}
-                  >
-                    {item}
-                  </Link>
-                ))}
-              </Box>
-            </Grid>
-
-            <Grid item xs={12} sm={4}>
-              <Box sx={{ position: "relative", display: "inline-block", pb: 1 }}>
-                <Typography variant="h6" fontWeight="bold" fontSize="12px" sx={{ pb: 0.5 }}>
-                  THE XCHANGE MARKETPLACE SUPPORT
-                </Typography>
-                <Box
-                  sx={{
-                    position: "absolute",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    bottom: "-3px",
-                    width: "80px",
-                    height: "2px",
-                    backgroundColor: "#ffa200",
-                    borderRadius: "2px",
-                    transition: "all 0.5s ease-in",
-                  }}
-                />
-              </Box>
-              <Box sx={{ pt: 1 }}>
-                {["Support / Help", "FAQs", "Contact"].map((item, i) => (
-                  <Link
-                    key={i}
-                    href={item === "Support / Help" ? "/support" : "#"}
-                    underline="none"
-                    sx={{
-                      color: "white",
-                      display: "block",
-                      mb: 1.5,
-                      transition: "all 0.5s ease-in",
-                      "&:hover": { color: "orange" },
-                    }}
-                  >
-                    {item}
-                  </Link>
-                ))}
-              </Box>
-            </Grid>
+                  />
+                </Box>
+                <Box sx={{ pt: 1 }}>
+                  {section.links.map((item, i) => (
+                    <Link
+                      key={i}
+                      href={item.url}
+                      underline="none"
+                      onClick={(e) => item.url !== "#" && handleLinkClick(e, item.url)}
+                      sx={{
+                        color: "white",
+                        display: "block",
+                        mb: 1.5,
+                        transition: "all 0.5s ease-in",
+                        "&:hover": { color: "orange" },
+                        cursor: "pointer",
+                      }}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </Box>
+              </Grid>
+            ))}
 
             {/* Join Us & Follow Us Section */}
             <Grid item xs={12} sm={4} sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>

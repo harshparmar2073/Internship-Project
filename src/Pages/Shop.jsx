@@ -837,37 +837,37 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 function SnackbarComponent({ open, message, onClose }) {
   return (
-    <Snackbar open={open} autoHideDuration={3000} onClose={onClose} message={message} />
-  );
+    <Snackbar 
+      open={open}
+      autoHideDuration={3000}
+      onClose={onClose}
+      message={message}
+    />
+  )
 }
 
-// ShopFilters component implementation (as provided in the previous artifact)
 const ShopFilters = ({ options, setOptions, info }) => {
   const [priceRange, setPriceRange] = useState({
     min: options.minPrice,
     max: options.maxPrice,
   });
-
   const [openFilters, setOpenFilters] = useState({
-    brand: true, // Initially open
-    condition: true, // Initially open
-    seller: true, // Initially open
-    price: true, // Initially open
-    location: true, // Initially open
+    brand: true,
+    condition: true,
+    seller: true,
+    price: true,
+    location: true,
   });
-
-  // State for seller list fetched from API
   const [sellers, setSellers] = useState([]);
 
-  // Fetch seller data from API when component mounts
   useEffect(() => {
-    fetch("/api/sellers") // Replace with your actual endpoint
+    // Add cache busting parameter to prevent 304 responses
+    fetch(`/api/sellers?_=${new Date().getTime()}`)
       .then((response) => response.json())
       .then((data) => {
-        // Assuming your API returns an array of seller objects { id, name }
-        setSellers(data);
+        setSellers(data)
       })
-      .catch((error) => console.error("Error fetching sellers:", error));
+      .catch((error) => console.error("Error fetching sellers:", error))
   }, []);
 
   const handleSubmitPrice = () => {
@@ -875,7 +875,7 @@ const ShopFilters = ({ options, setOptions, info }) => {
       ...options,
       minPrice: priceRange.min,
       maxPrice: priceRange.max,
-    });
+    })
   };
 
   const handleReset = (filterType) => {
@@ -904,35 +904,30 @@ const ShopFilters = ({ options, setOptions, info }) => {
   const handleLocationChange = (location) => {
     const currentLocations = [...options.location];
     const locationIndex = currentLocations.indexOf(location);
-
     if (locationIndex === -1) {
-      currentLocations.push(location);
+      currentLocations.push(location)
     } else {
-      currentLocations.splice(locationIndex, 1);
+      currentLocations.splice(locationIndex, 1)
     }
-
-    setOptions({ ...options, location: currentLocations });
+    setOptions({ ...options, location: currentLocations })
   };
 
   const handlePriceRangeSelection = (min, max) => {
     setPriceRange({ min, max });
-    setOptions({ ...options, minPrice: min, maxPrice: max });
+    setOptions({ ...options, minPrice: min, maxPrice: max })
   };
 
   const toggleFilter = (filterType) => {
     setOpenFilters({
       ...openFilters,
       [filterType]: !openFilters[filterType],
-    });
+    })
   };
 
   return (
     <Box>
-      <Typography variant="h6" sx={{ mt: 2, mb: 2, fontWeight: "bold" }}>
-        Shop by
-      </Typography>
-
-      {/* Brand Filter */}
+      <Typography variant="h6" sx={{ mt: 2, mb: 2, fontWeight: "bold" }}>Shop by</Typography>
+      
       <Paper elevation={1} sx={{ mb: 3, p: 2 }}>
         <Box
           sx={{
@@ -944,14 +939,11 @@ const ShopFilters = ({ options, setOptions, info }) => {
           }}
           onClick={() => toggleFilter("brand")}
         >
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-            Brand
-          </Typography>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>Brand</Typography>
           <Box component="span">
             {openFilters.brand ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </Box>
         </Box>
-
         {openFilters.brand && (
           <>
             <Button
@@ -963,17 +955,10 @@ const ShopFilters = ({ options, setOptions, info }) => {
             >
               Reset
             </Button>
-
             <FormControl component="fieldset" fullWidth>
               <RadioGroup
                 value={options.brand}
-                onChange={(e) =>
-                  setOptions({
-                    ...options,
-                    brand: e.target.value,
-                  })
-                }
-              >
+                onChange={(e) => setOptions({ ...options, brand: e.target.value })}>
                 <FormControlLabel
                   value="Nike"
                   control={<Radio size="small" />}
@@ -989,8 +974,7 @@ const ShopFilters = ({ options, setOptions, info }) => {
           </>
         )}
       </Paper>
-
-      {/* Condition Filter */}
+      
       <Paper elevation={1} sx={{ mb: 3, p: 2 }}>
         <Box
           sx={{
@@ -1002,14 +986,11 @@ const ShopFilters = ({ options, setOptions, info }) => {
           }}
           onClick={() => toggleFilter("condition")}
         >
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-            Condition
-          </Typography>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>Condition</Typography>
           <Box component="span">
             {openFilters.condition ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </Box>
         </Box>
-
         {openFilters.condition && (
           <>
             <Button
@@ -1021,17 +1002,10 @@ const ShopFilters = ({ options, setOptions, info }) => {
             >
               Reset
             </Button>
-
             <FormControl component="fieldset" fullWidth>
               <RadioGroup
                 value={options.condition}
-                onChange={(e) =>
-                  setOptions({
-                    ...options,
-                    condition: e.target.value,
-                  })
-                }
-              >
+                onChange={(e) => setOptions({ ...options, condition: e.target.value })}>
                 <FormControlLabel
                   value="Machinery"
                   control={<Radio size="small" />}
@@ -1047,8 +1021,7 @@ const ShopFilters = ({ options, setOptions, info }) => {
           </>
         )}
       </Paper>
-
-      {/* Seller Filter */}
+      
       <Paper elevation={1} sx={{ mb: 3, p: 2 }}>
         <Box
           sx={{
@@ -1060,14 +1033,11 @@ const ShopFilters = ({ options, setOptions, info }) => {
           }}
           onClick={() => toggleFilter("seller")}
         >
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-            Seller
-          </Typography>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>Seller</Typography>
           <Box component="span">
             {openFilters.seller ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </Box>
         </Box>
-
         {openFilters.seller && (
           <>
             <Button
@@ -1079,14 +1049,10 @@ const ShopFilters = ({ options, setOptions, info }) => {
             >
               Reset
             </Button>
-
             <FormControl component="fieldset" fullWidth>
               <RadioGroup
                 value={options.seller}
-                onChange={(e) =>
-                  setOptions({ ...options, seller: e.target.value })
-                }
-              >
+                onChange={(e) => setOptions({ ...options, seller: e.target.value })}>
                 {sellers.map((seller) => (
                   <FormControlLabel
                     key={seller.id}
@@ -1100,8 +1066,7 @@ const ShopFilters = ({ options, setOptions, info }) => {
           </>
         )}
       </Paper>
-
-      {/* Price Filter */}
+      
       <Paper elevation={1} sx={{ mb: 3, p: 2 }}>
         <Box
           sx={{
@@ -1113,14 +1078,11 @@ const ShopFilters = ({ options, setOptions, info }) => {
           }}
           onClick={() => toggleFilter("price")}
         >
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-            Price
-          </Typography>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>Price</Typography>
           <Box component="span">
             {openFilters.price ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </Box>
         </Box>
-
         {openFilters.price && (
           <>
             <Box sx={{ mt: 2 }}>
@@ -1133,12 +1095,10 @@ const ShopFilters = ({ options, setOptions, info }) => {
                     variant="outlined"
                     size="small"
                     value={priceRange.min}
-                    onChange={(e) =>
-                      setPriceRange({
-                        ...priceRange,
-                        min: parseInt(e.target.value, 10) || 0,
-                      })
-                    }
+                    onChange={(e) => setPriceRange({
+                      ...priceRange,
+                      min: parseInt(e.target.value, 10) || 0,
+                    })}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -1149,12 +1109,10 @@ const ShopFilters = ({ options, setOptions, info }) => {
                     variant="outlined"
                     size="small"
                     value={priceRange.max}
-                    onChange={(e) =>
-                      setPriceRange({
-                        ...priceRange,
-                        max: parseInt(e.target.value, 10) || 0,
-                      })
-                    }
+                    onChange={(e) => setPriceRange({
+                      ...priceRange,
+                      max: parseInt(e.target.value, 10) || 0,
+                    })}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -1180,7 +1138,6 @@ const ShopFilters = ({ options, setOptions, info }) => {
                 </Grid>
               </Grid>
             </Box>
-
             <FormControl component="fieldset" fullWidth sx={{ mt: 2 }}>
               <RadioGroup
                 value={
@@ -1238,8 +1195,7 @@ const ShopFilters = ({ options, setOptions, info }) => {
           </>
         )}
       </Paper>
-
-      {/* Location Filter */}
+      
       <Paper elevation={1} sx={{ mb: 3, p: 2 }}>
         <Box
           sx={{
@@ -1251,14 +1207,11 @@ const ShopFilters = ({ options, setOptions, info }) => {
           }}
           onClick={() => toggleFilter("location")}
         >
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-            Location
-          </Typography>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>Location</Typography>
           <Box component="span">
             {openFilters.location ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </Box>
         </Box>
-
         {openFilters.location && (
           <>
             <FormControl component="fieldset" fullWidth>
@@ -1276,9 +1229,7 @@ const ShopFilters = ({ options, setOptions, info }) => {
                 control={
                   <Checkbox
                     checked={options.location.includes("Antigua And Barbuda")}
-                    onChange={() =>
-                      handleLocationChange("Antigua And Barbuda")
-                    }
+                    onChange={() => handleLocationChange("Antigua And Barbuda")}
                     size="small"
                   />
                 }
@@ -1301,6 +1252,7 @@ const ShopFilters = ({ options, setOptions, info }) => {
     </Box>
   );
 };
+
 function Shop() {
   const [error, setError] = useState(null);
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -1311,8 +1263,14 @@ function Shop() {
     seller: [],
     categories: [],
   });
-  const [videoModal, setVideoModal] = useState({ state: false, url: "" });
-  const [isDialogOpen, setIsDialogOpen] = useState({ state: false, data: {} });
+  const [videoModal, setVideoModal] = useState({
+    state: false,
+    url: ""
+  });
+  const [isDialogOpen, setIsDialogOpen] = useState({
+    state: false,
+    data: {}
+  });
   const [option, setOption] = useState({
     page: 1,
     size: 9,
@@ -1321,17 +1279,19 @@ function Shop() {
     search: "",
     brand: "",
     category: "",
-    condition: "", // Added for condition filter
-    seller: "", // Added for seller filter
+    condition: "",
+    seller: "",
     minPrice: 0,
     maxPrice: 1000000,
-    location: [], // Changed to array for multiple selections
+    location: [],
   });
   const [search, setSearch] = useState("");
   const [totalElem, setTotalElem] = useState(0);
-  const [snackbar, setSnackbar] = useState({ open: false, message: "" });
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: ""
+  });
   const [loading, setLoading] = useState(true);
-  // Add a separate loading state for the initial data load
   const [initialLoadComplete, setInitialLoadComplete] = useState(false);
 
   const handleSnackbarClose = () => {
@@ -1342,12 +1302,12 @@ function Shop() {
     setSnackbar({ open: true, message });
   };
 
+  // Modified fetchData function to add cache busting parameter
   const fetchData = async () => {
     try {
       setLoading(true);
       console.log("Fetching Featured Products");
       
-      // Create request payload with all filter options
       const payload = {
         page: option.page,
         size: option.size,
@@ -1358,28 +1318,26 @@ function Shop() {
         search: option.search,
         brand: option.brand,
         category: option.category,
-        condition: option.condition, // Include condition in API request
-        seller: option.seller, // Include seller in API request
+        condition: option.condition,
+        seller: option.seller,
+        timestamp: new Date().getTime(), // Add cache busting parameter
       };
       
-      // Add locations if there are any selected
       if (option.location && option.location.length > 0) {
         payload.locations = option.location;
       }
       
       const response = await api.post("/home/homepage", payload);
-
       const data = response.data;
-
+      
       console.log("Featured Products Response:", data);
-
+      
       if (data?.statusCodeValue === 200 && data.body && data.body.content) {
         setFeaturedProducts(data.body.content);
         setTotalElem(data.body.totalElements || 0);
       } else {
         console.warn("Unexpected response format:", data);
         openSnackbar(data.body?.message || "Error fetching data");
-        // Don't clear existing data on error if this is not initial load
         if (!initialLoadComplete) {
           setFeaturedProducts([]);
         }
@@ -1387,7 +1345,6 @@ function Shop() {
     } catch (error) {
       console.error("Error fetching data:", error);
       openSnackbar(error?.message || "An error occurred");
-      // Don't clear existing data on error if this is not initial load
       if (!initialLoadComplete) {
         setFeaturedProducts([]);
       }
@@ -1397,11 +1354,14 @@ function Shop() {
     }
   };
 
+  // Modified fetchProd function to add cache busting parameter
   const fetchProd = async () => {
     try {
       console.log("Fetching Seller Featured Products");
-      const { data } = await api.get("sellerprofile/getSellerFeatureProducts");
+      const { data } = await api.get(`sellerprofile/getSellerFeatureProducts?_=${new Date().getTime()}`);
+      
       console.log("Seller Featured Products Response:", data);
+      
       if (Array.isArray(data)) {
         setFproducts(data);
       } else {
@@ -1411,34 +1371,43 @@ function Shop() {
     } catch (error) {
       console.error("Error fetching products:", error);
       openSnackbar(error?.message || "Error fetching featured products");
-      // Don't set to empty array if this is not the initial load
       if (!initialLoadComplete) {
         setFproducts([]);
       }
     }
   };
 
+  // Modified fetchInfo function to add cache busting parameter
   const fetchInfo = async () => {
     try {
       console.log("Fetching Lookups");
-      const { data } = await api.get("/home/lookups");
+      const { data } = await api.get(`/home/lookups?_=${new Date().getTime()}`);
+      
       console.log("Lookups Response:", data);
       setInfo(data || { manufacturer: [], seller: [], categories: [] });
     } catch (error) {
       console.error("Error fetching lookups:", error);
       openSnackbar(error?.message || "Error fetching lookups");
-      // Don't set to default if this is not the initial load
       if (!initialLoadComplete) {
         setInfo({ manufacturer: [], seller: [], categories: [] });
       }
     }
   };
 
+  // Modified fetchAdvertisements function to add cache busting parameter
   const fetchAdvertisements = async () => {
     try {
       console.log("Fetching Advertisements");
-      const { data } = await api.post("/advert", { page: 1, size: 5 });
+      const payload = { 
+        page: 1, 
+        size: 5,
+        timestamp: new Date().getTime() // Add cache busting parameter
+      };
+      
+      const { data } = await api.post("/advert", payload);
+      
       console.log("Advertisements Response:", data);
+      
       if (data && Array.isArray(data.content)) {
         setAdvertisements(data.content);
       } else {
@@ -1448,7 +1417,6 @@ function Shop() {
     } catch (error) {
       console.error("Error fetching advertisements:", error);
       openSnackbar(error?.message || "Error fetching advertisements");
-      // Don't set to empty array if this is not the initial load
       if (!initialLoadComplete) {
         setAdvertisements([]);
       }
@@ -1537,7 +1505,7 @@ function Shop() {
 
   const renderProductCard = (item) => {
     if (!item || !item.id) return null;
-
+    
     return (
       <Card
         key={item.id}
@@ -1548,7 +1516,7 @@ function Shop() {
           {item.primaryfile && item.primaryfile.url ? (
             <Box
               component="img"
-              src={item.primaryfile.url}
+              src={`${item.primaryfile.url}?_=${new Date().getTime()}`} // Add cache busting parameter
               alt={item.productname || "Product"}
               sx={{ height: 200, width: "100%", objectFit: "cover" }}
               onError={(e) => {
@@ -1557,8 +1525,7 @@ function Shop() {
                 const parent = e.target.parentNode;
                 if (parent) {
                   const icon = document.createElement("div");
-                  icon.innerHTML =
-                    '<svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" viewBox="0 0 24 24"><path fill="#6e6e6e" d="M21 5v6.59l-3-3.01-4 4.01-4-4-4 4-3-3.01V5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2zm-3 6.42l3 3.01V19c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2v-6.58l3 2.99 4-4 4 4 4-3.99z"/></svg>';
+                  icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" viewBox="0 0 24 24"><path fill="#6e6e6e" d="M21 5v6.59l-3-3.01-4 4.01-4-4-4 4-3-3.01V5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2zm-3 6.42l3 3.01V19c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2v-6.58l3 2.99 4-4 4 4 4-3.99z"/></svg>';
                   parent.appendChild(icon);
                 }
               }}
@@ -1571,7 +1538,14 @@ function Shop() {
           <Typography
             variant="h6"
             gutterBottom
-            sx={{ overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", fontSize: 18 }}
+            sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              fontSize: 18
+            }}
           >
             {item.productname || "Unnamed Product"}
           </Typography>
@@ -1581,66 +1555,72 @@ function Shop() {
         </CardContent>
       </Card>
     );
-  };   
+  };
 
   if (error && !initialLoadComplete) {
     return (
       <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}>
-        <Typography variant="h5" color="error" gutterBottom>
-          Something went wrong
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          {error}
-        </Typography>
-        <Button variant="contained" color="primary" onClick={() => window.location.reload()} sx={{ mt: 2 }}>
+        <Typography variant="h5" color="error" gutterBottom>Something went wrong</Typography>
+        <Typography variant="body1" gutterBottom>{error}</Typography>
+        <Button 
+          variant="contained" 
+          color="primary" 
+          onClick={() => window.location.reload()}
+          sx={{ mt: 2 }}
+        >
           Refresh Page
         </Button>
       </Box>
     );
-  }   
-
+  }
+  
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <AppBar
-      position="static"
-      color="default"
-      sx={{
-        backgroundColor: 'transparent', // or "#f5f5f5" if you want a light background
-        boxShadow: 'none',              // remove AppBar shadow
-        py: 2,                          // vertical padding
-      }}
-    >
-      <Toolbar
+        position="static"
+        color="default"
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          backgroundColor: 'transparent',
+          boxShadow: 'none',
+          py: 2,
         }}
       >
-        <Typography
-          variant="h6"
-          component="div"
-          sx={{ 
-            fontWeight: '500',
-            color: '#000',  
-            textAlign: 'center',
+        <Toolbar
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
-          FEATURED PRODUCTS
-        </Typography>
-        {/* Yellow bar under the text */}
-        <Box
-          sx={{
-            width: 150,             // length of the bar
-            height: 4,            // thickness of the bar
-            backgroundColor: '#FFC107',
-            mt: 1,                // margin-top
-          }}
-        />
-      </Toolbar>
-    </AppBar>
-<Typography variant="body1" ml={2}>No Products</Typography>
-      <SnackbarComponent open={snackbar.open} message={snackbar.message} onClose={handleSnackbarClose} />
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{
+              fontWeight: '500',
+              color: '#000',
+              textAlign: 'center',
+            }}
+          >
+            FEATURED PRODUCTS
+          </Typography>
+          <Box
+            sx={{
+              width: 150,
+              height: 4,
+              backgroundColor: '#FFC107',
+              mt: 1,
+            }}
+          />
+        </Toolbar>
+      </AppBar>
+
+      {featuredProducts.length === 0 && !loading && <Typography variant="body1" ml={2}>No Products</Typography>}
+
+      <SnackbarComponent 
+        open={snackbar.open}
+        message={snackbar.message}
+        onClose={handleSnackbarClose}
+      />
 
       <Dialog
         open={videoModal.state}
@@ -1668,11 +1648,10 @@ function Shop() {
                 <ArrowBackIosIcon sx={{ fontSize: 60, color: "white" }} />
               </IconButton>
             )}
-
             <Box sx={{ mx: 2, maxWidth: "100%" }}>
               {videoModal.type === "video" ? (
                 <ReactPlayer
-                  url={videoModal.url}
+                  url={`${videoModal.url}?_=${new Date().getTime()}`} // Add cache busting parameter
                   playing
                   controls
                   width="100%"
@@ -1685,7 +1664,7 @@ function Shop() {
               ) : (
                 <Box
                   component="img"
-                  src={videoModal.url}
+                  src={`${videoModal.url}?_=${new Date().getTime()}`} // Add cache busting parameter
                   alt="Media content"
                   sx={{ maxHeight: "70vh", maxWidth: "100%" }}
                   onError={(e) => {
@@ -1695,7 +1674,6 @@ function Shop() {
                 />
               )}
             </Box>
-
             {!videoModal.isPrimary && videoModal.current + 1 < videoModal.total && (
               <IconButton
                 onClick={() => {
@@ -1716,9 +1694,18 @@ function Shop() {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={isDialogOpen.state} onClose={handleDialogClose} TransitionComponent={Grow} fullWidth maxWidth="md">
+      <Dialog 
+        open={isDialogOpen.state}
+        onClose={handleDialogClose}
+        TransitionComponent={Grow}
+        fullWidth 
+        maxWidth="md"
+      >
         <DialogContent>
-          <IconButton sx={{ position: "absolute", top: 8, right: 8, color: "#48a068" }} onClick={handleDialogClose}>
+          <IconButton 
+            sx={{ position: "absolute", top: 8, right: 8, color: "#48a068" }}
+            onClick={handleDialogClose}
+          >
             <HighlightOffIcon />
           </IconButton>
 
@@ -1729,253 +1716,231 @@ function Shop() {
                   sx={{
                     height: 193,
                     minWidth: 150,
-                    border: "1px solid #b1b0b0",
-                    borderRadius: 1,
-                    p: 1.5,
+                    border: "1px solid #e0e0e0",
+                    borderRadius: 2,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                    cursor: "pointer",
+                    overflow: "hidden",
+                  }}
+                  onClick={() => {
+                    if (isDialogOpen.data?.primaryfile?.url) {
+                      setVideoModal({
+                        state: true,
+                        url: isDialogOpen.data.primaryfile.url,
+                        type: isDialogOpen.data.primaryfile.fileType,
+                        isPrimary: true,
+                        current: -1,
+                        total: isDialogOpen.data.productfiles?.length || 0
+                      });
+                    }
                   }}
                 >
                   {isDialogOpen.data?.primaryfile?.url ? (
-                    <Box
-                      component="img"
-                      src={isDialogOpen.data.primaryfile.url}
-                      alt={isDialogOpen.data?.productname || "Product image"}
-                      sx={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain", cursor: "pointer" }}
-                      onClick={() => {
-                        if (isDialogOpen.data?.primaryfile?.url) {
-                          setVideoModal({
-                            state: true,
-                            url: isDialogOpen.data.primaryfile.url,
-                            type: "image",
-                            isPrimary: true,
-                          });
-                        }
-                      }}
-                      onError={(e) => {
-                        e.target.src = '/path/to/fallback-image.jpg';
-                      }}
-                    />
+                    isDialogOpen.data.primaryfile.fileType === "video" ? (
+                      <Box
+                        component="img"
+                        src={videoplaceholder1}
+                        alt="Video Placeholder"
+                        sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    ) : (
+                      <Box
+                        component="img"
+                        src={`${isDialogOpen.data.primaryfile.url}?_=${new Date().getTime()}`}
+                        alt={isDialogOpen.data.productname || "Product"}
+                        sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "/path/to/fallback-image.jpg";
+                        }}
+                      />
+                    )
                   ) : (
-                    <ImageNotSupportedIcon sx={{ fontSize: 100, color: "#6e6e6e" }} />
+                    <ImageNotSupportedIcon sx={{ fontSize: 60, color: "#6e6e6e" }} />
                   )}
                 </Box>
-              </Grid>
 
-              <Grid item xs={12} sm={7}>
-                <Box
-                  sx={{
-                    minWidth: 250,
-                    height: 200,
-                    ml: { xs: 0, sm: 1 },
-                    display: "flex",
-                    flexWrap: "wrap",
-                    alignItems: "flex-start",
-                    alignContent: "flex-start",
-                  }}
-                >
-                  {isDialogOpen.data?.productfiles?.map((pro_files, index) => {
-                    if (!pro_files || !pro_files.url) return null;
-
-                    return (
+                <Grid container spacing={1} sx={{ mt: 1 }}>
+                  {isDialogOpen.data?.productfiles?.slice(0, 4).map((file, index) => (
+                    <Grid item xs={3} key={index}>
                       <Box
-                        key={index}
-                        component="img"
-                        src={pro_files.fileType === "video" ? videoplaceholder1 : pro_files.url}
-                        alt={`Product file ${index}`}
-                        sx={{ width: 90, height: 90, p: 0.75, borderRadius: 1, border: "1px solid #b1b0b0", m: 0.5, cursor: "pointer", objectFit: "cover" }}
+                        sx={{
+                          height: 60,
+                          width: "100%",
+                          border: "1px solid #e0e0e0",
+                          borderRadius: 1,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: "pointer",
+                          overflow: "hidden",
+                        }}
                         onClick={() => {
                           setVideoModal({
                             state: true,
-                            url: pro_files.url,
-                            type: pro_files.fileType,
+                            url: file.url,
+                            type: file.fileType,
                             isPrimary: false,
                             current: index,
-                            total: isDialogOpen.data.productfiles.length,
+                            total: isDialogOpen.data.productfiles.length || 0
                           });
                         }}
-                        onError={(e) => {
-                          e.target.src = '/path/to/fallback-image.jpg';
-                        }}
-                      />
-                    );
-                  })}
+                      >
+                        {file.fileType === "video" ? (
+                          <Box
+                            component="img"
+                            src={videoplaceholder1}
+                            alt="Video Placeholder"
+                            sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+                          />
+                        ) : (
+                          <Box
+                            component="img"
+                            src={`${file.url}?_=${new Date().getTime()}`}
+                            alt={`Additional image ${index}`}
+                            sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = "/path/to/fallback-image.jpg";
+                            }}
+                          />
+                        )}
+                      </Box>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Grid>
+
+              <Grid item xs={12} sm={7}>
+                <Typography variant="h5" gutterBottom>
+                  {isDialogOpen.data?.productname || "Unnamed Product"}
+                </Typography>
+                <Typography variant="h6" color="primary" gutterBottom>
+                  ${isDialogOpen.data?.discountprice !== "" && isDialogOpen.data?.discountprice
+                    ? isDialogOpen.data?.discountprice
+                    : isDialogOpen.data?.price || "N/A"}
+                </Typography>
+                <Typography variant="body1" paragraph>
+                  {isDialogOpen.data?.description || "No description available"}
+                </Typography>
+                <Grid container spacing={2}>
+                  <Grid item xs={6}>
+                    <Typography variant="body2">
+                      <strong>Brand:</strong> {isDialogOpen.data?.brand || "N/A"}
+                    </Typography>
+                    <Typography variant="body2">
+                      <strong>Category:</strong> {isDialogOpen.data?.category || "N/A"}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="body2">
+                      <strong>Condition:</strong> {isDialogOpen.data?.condition || "N/A"}
+                    </Typography>
+                    <Typography variant="body2">
+                      <strong>Location:</strong> {isDialogOpen.data?.location || "N/A"}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Box sx={{ mt: 2 }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    fullWidth
+                    sx={{ mb: 1 }}
+                  >
+                    Contact Seller
+                  </Button>
                 </Box>
               </Grid>
             </Grid>
           </Box>
-
-          <Box sx={{ mt: 4, mb: 2 }}>
-            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-              {isDialogOpen.data?.productname || ""}
-            </Typography>
-          </Box>
-
-          <Box sx={{ mb: 2 }}>
-            <Typography variant="body1">
-              {isDialogOpen.data?.description || "No description available"}
-            </Typography>
-          </Box>
-
-          <Typography variant="body1" sx={{ mb: 1 }}>
-            <Box component="span" sx={{ fontWeight:"bold" }}>
-              Brand:{" "}
-            </Box>
-            {isDialogOpen.data?.manufacturer || "Not specified"}
-          </Typography>
-
-          <Typography variant="body1" sx={{ mb: 1 }}>
-            <Box component="span" sx={{ fontWeight: "bold" }}>
-              Location:{" "}
-            </Box>
-            {isDialogOpen.data?.address || "Not specified"}
-          </Typography>
-
-          <Typography variant="body1">
-            <Box component="span" sx={{ fontWeight: "bold" }}>
-              Price:{" "}
-            </Box>
-            ${isDialogOpen.data?.discountprice !== "" && isDialogOpen.data?.discountprice ? isDialogOpen.data.discountprice : isDialogOpen.data?.price || "N/A"}
-          </Typography>
-
-          <Box sx={{ mt: 4, display: "flex", justifyContent: "flex-end" }}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleDialogClose}
-              sx={{ minWidth: 120 }}
-            >
-              Close
-            </Button>
-          </Box>
         </DialogContent>
       </Dialog>
 
-      <Container maxWidth="xl" sx={{ flexGrow: 1, py: 4 }}>
-       {/* Search Bar */}
-       <Box
-  sx={{
-    mb: 4,
-    backgroundColor: '#4CAF50',
-    py: 4,
-  }}
->
-  <Box
-    sx={{
-      width: {
-        xs: '90%',
-        sm: '70%',
-        md: '600px',
-        lg: '800px',
-      },
-      height: '55px',
-      mx: 'auto',
-      display: 'flex',
-      alignItems: 'center',
-      backgroundColor: '#fff',
-      borderRadius: '45px',
-      pl: 3,
-      pr: 0,
-      py: 1.5,
-    }}
-  >
-    <SearchIcon
-      sx={{
-        color: 'grey.600',
-        fontSize: '2rem',
-        mr: 2,
-      }}
-    />
-
-    <InputBase
-      placeholder="Search THE XCHANGE SHOP"
-      value={search}
-      onChange={(e) => setSearch(e.target.value)}
-      onKeyPress={(e) => {
-        if (e.key === 'Enter') {
-          setOption({ ...option, search, page: 1 });
-        }
-      }}
-      sx={{
-        flex: 1,
-        fontSize: {
-          xs: '1rem', // Smaller font size for placeholder
-          md: '1.2rem',
-        },
-      }}
-    />
-
-    <Button
-      variant="contained"
-      onClick={() => setOption({ ...option, search, page: 1 })}
-      sx={{
-        backgroundColor: '#FFA500',
-        color: '#000',
-        borderRadius: '999px',
-        textTransform: 'none',
-        fontWeight: '500',
-        fontSize: {
-          xs: '0.9rem', // Smaller font size for button text
-          md: '1rem',
-        },
-        px: {
-          xs: 4,
-          md: 5,
-        },
-        py: 1.8,
-        '&:hover': {
-          backgroundColor: '#000',
-          color: '#fff',
-        },
-      }}
-    >
-      Start Browsing
-    </Button>
-  </Box>
-</Box>
-
-<Typography variant="body1" mb={2}>Our aim is to offer a resale platform which specifically targets the underserved industrial and academic sectors.</Typography>
+      <Container maxWidth="xl" sx={{ mb: 4, flexGrow: 1 }}>
         <Grid container spacing={3}>
-          {/* Filters Section */}
           <Grid item xs={12} md={3}>
-            <ShopFilters 
-              options={option} 
-              setOptions={setOption} 
-              info={info} 
-            />
-          </Grid>
-
-          {/* Products Grid Section */}
-          <Grid item xs={12} md={9}>
-            <Box sx={{ mb: 3, display: "flex", justifyContent: "space-between", alignItems: "center"  }}>
-             
-              
-              {/* <FormControl variant="outlined" size="small">
-                <RadioGroup
-                  row
-                  value={option.sortBy}
-                  onChange={(e) => {
-                    setOption({
-                      ...option,
-                      sortBy: e.target.value,
-                      page: 1,
-                    });
+            <Box sx={{ mb: 3 }}>
+              <Paper sx={{ p: 2 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    mb: 2,
+                    p: 1,
+                    borderRadius: 1,
+                    border: "1px solid #e0e0e0",
                   }}
                 >
-                  <FormControlLabel value="price" control={<Radio />} label="Price" />
-                  <FormControlLabel value="createddate" control={<Radio />} label="Date" />
-                  <FormControlLabel value="orderstatus" control={<Radio />} label="Status" />
-                </RadioGroup>
-              </FormControl> */}
-              <Box sx={{borderBottom: 1, borderColor: 'grey.400', width: '100%', mt:4}}></Box>
-            </Box>  
+                  <InputBase
+                    placeholder="Search products..."
+                    fullWidth
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") {
+                        setOption({ ...option, search: search, page: 1 });
+                      }
+                    }}
+                    startAdornment={
+                      <SearchIcon sx={{ mr: 1, color: "action.active" }} />
+                    }
+                  />
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => setOption({ ...option, search: search, page: 1 })}
+                  >
+                    Search
+                  </Button>
+                </Box>
 
+                <Box sx={{ mb: 2 }}>
+                  <FormControl fullWidth>
+                    <Select
+                      value={option.category}
+                      displayEmpty
+                      onChange={(e) => setOption({ ...option, category: e.target.value, page: 1 })}
+                      size="small"
+                    >
+                      <MenuItem value="">All Categories</MenuItem>
+                      {info.categories.map((category) => (
+                        <MenuItem key={category} value={category}>
+                          {category}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Box>
+
+                <Box sx={{ mb: 2 }}>
+                  <FormControl fullWidth>
+                    <Select
+                      value={option.sortBy}
+                      onChange={(e) => setOption({ ...option, sortBy: e.target.value, page: 1 })}
+                      size="small"
+                    >
+                      <MenuItem value="orderstatus">Sort by Default</MenuItem>
+                      <MenuItem value="price">Sort by Price</MenuItem>
+                      <MenuItem value="productname">Sort by Name</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+
+                <ShopFilters options={option} setOptions={setOption} info={info} />
+              </Paper>
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} md={9}>
             {loading && !initialLoadComplete ? (
-              <Box sx={{ display: "flex", justifyContent: "center", my: 8 }}>
+              <Box sx={{ display: "flex", justifyContent: "center", my: 4 }}>
                 <CircularProgress />
               </Box>
-            ) : featuredProducts.length > 0 ? (
+            ) : (
               <>
                 <Grid container spacing={3}>
                   {featuredProducts.map((item) => (
@@ -1985,164 +1950,81 @@ function Shop() {
                   ))}
                 </Grid>
 
-                {/* Pagination Controls */}
-  <Box sx={{ mt: 8, display: "flex", justifyContent: "center", alignItems: "center" }}>
-  <Button
-    disabled={option.page <= 1}
-    onClick={() => setOption({ ...option, page: option.page - 1 })}
-    sx={{
-      minWidth: 'auto',
-      px: 2,
-      py: 1,
-      borderRadius: '4px',
-      border: '1px solid #ccc',
-      '&:hover': {
-        backgroundColor: '#f0f0f0',
-      },
-      '&.disabled': {
-        color: '#ccc',
-        border: '1px solid #eee',
-      },
-    }}
-  >
-    Previous
-  </Button>
-  <Button
-    variant="contained"
-    disabled={false}
-    sx={{
-      mx: 1,
-      minWidth: '36px',
-      height: '36px',
-      borderRadius: '4px',
-      backgroundColor: '#1976d2',
-      color: '#fff',
-      fontSize: '1rem',
-      fontWeight: 'bold',
-      '&:hover': {
-        backgroundColor: '#1565c0',
-      },
-    }}
-  >
-    {option.page}
-  </Button>
-  <Button
-    disabled={option.page >= Math.ceil(totalElem / option.size)}
-    onClick={() => setOption({ ...option, page: option.page + 1 })}
-    sx={{
-      minWidth: 'auto',
-      px: 2,
-      py: 1,
-      borderRadius: '4px',
-      border: '1px solid #ccc',
-      '&:hover': {
-        backgroundColor: '#f0f0f0',
-      },
-      '&.disabled': {
-        color: '#ccc',
-        border: '1px solid #eee',
-      },
-    }}
-  >
-    Next
-  </Button>
-  <Box sx={{ ml: 2, border: '1px solid #ccc', borderRadius: '4px', overflow: 'hidden' }}>
-    <Select
-      value={option.size}
-      onChange={(e) => setOption({ ...option, size: e.target.value, page: 1 })}
-      variant="outlined"
-      size="small"
-      sx={{
-        height: '36px',
-        minWidth: '60px',
-        border: 'none',
-        '& .MuiOutlinedInput-notchedOutline': {
-          border: 'none',
-        },
-      }}
-    >
-      <MenuItem value={10}>10</MenuItem>
-      <MenuItem value={20}>20</MenuItem>
-      <MenuItem value={50}>50</MenuItem>
-      <MenuItem value={100}>100</MenuItem>
-    </Select>
-  </Box>
-</Box>
+                {featuredProducts.length > 0 && (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      mt: 4,
+                    }}
+                  >
+                    <Button
+                      disabled={option.page === 1}
+                      onClick={() => setOption({ ...option, page: option.page - 1 })}
+                    >
+                      Previous
+                    </Button>
+                    <Typography sx={{ mx: 2 }}>
+                      Page {option.page} of {Math.ceil(totalElem / option.size)}
+                    </Typography>
+                    <Button
+                      disabled={option.page >= Math.ceil(totalElem / option.size)}
+                      onClick={() => setOption({ ...option, page: option.page + 1 })}
+                    >
+                      Next
+                    </Button>
+                  </Box>
+                )}
+
+                {advertisements && advertisements.length > 0 && (
+                  <Box sx={{ mt: 4 }}>
+                    <Typography variant="h6" gutterBottom>
+                      Featured Advertisements
+                    </Typography>
+                    <Grid container spacing={2}>
+                      {advertisements.slice(0, 3).map((ad, index) => (
+                        <Grid item xs={12} md={4} key={index}>
+                          <Card sx={{ height: "100%" }}>
+                            <Box sx={{ height: 200, overflow: "hidden" }}>
+                              {ad.fileType === "video" ? (
+                                <Box
+                                  component="img"
+                                  src={videoplaceholder1}
+                                  alt="Video Advertisement"
+                                  sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                />
+                              ) : (
+                                <Box
+                                  component="img"
+                                  src={`${ad.fileUrl}?_=${new Date().getTime()}`}
+                                  alt="Advertisement"
+                                  sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                  onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = "/path/to/fallback-image.jpg";
+                                  }}
+                                />
+                              )}
+                            </Box>
+                            <CardContent>
+                              <Typography variant="h6" noWrap>
+                                {ad.title || "Advertisement"}
+                              </Typography>
+                              <Typography variant="body2" color="text.secondary">
+                                {ad.description || "No description available"}
+                              </Typography>
+                            </CardContent>
+                          </Card>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </Box>
+                )}
               </>
-            ) : (
-              <Box sx={{ textAlign: "center", py: 8 }}>
-                <Typography variant="h6" color="textSecondary">
-                  No products found matching your criteria
-                </Typography>
-                <Button 
-                  variant="contained" 
-                  color="primary" 
-                  sx={{ mt: 2 }}
-                  onClick={() => {
-                    setOption({
-                      page: 1,
-                      size: 9,
-                      sortBy: "orderstatus",
-                      sortOrder: "asc",
-                      search: "",
-                      brand: "",
-                      category: "",
-                      condition: "",
-                      seller: "",
-                      minPrice: 0,
-                      maxPrice: 1000000,
-                      location: [],
-                    });
-                    setSearch("");
-                  }}
-                >
-                  Clear Filters
-                </Button>
-              </Box>
             )}
           </Grid>
         </Grid>
-
-        {/* Featured Products Section */}
-        {fproducts.length > 0 && (
-          <Box sx={{ mt: 8 }}>
-            <Typography variant="h5" component="h2" sx={{ mb: 3 }}>
-              Featured Products
-            </Typography>
-            <Grid container spacing={3}>
-              {fproducts.slice(0, 3).map((item) => (
-                <Grid item xs={12} sm={6} md={4} key={item.id}>
-                  {renderProductCard(item)}
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        )}
-
-        {/* Advertisements Section */}
-        {advertisements.length > 0 && (
-          <Box sx={{ mt: 8 }}>
-            <Typography variant="h5" component="h2" sx={{ mb: 3 }}>
-              Sponsored Products
-            </Typography>
-            <Grid container spacing={3}>
-              {advertisements.slice(0, 3).map((item) => (
-                <Grid item xs={12} sm={6} md={4} key={item.id}>
-                  {renderProductCard(item)}
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        )}
       </Container>
-
-      <Box component="footer" sx={{ py: 3, px: 2, mt: "auto", backgroundColor: "background.paper" }}>
-        <Container maxWidth="lg">
-          <Typography variant="body2" color="text.secondary" align="center">
-            The Xchange Shop © {new Date().getFullYear()}
-          </Typography>
-        </Container>
-      </Box>
     </Box>
   );
 }
